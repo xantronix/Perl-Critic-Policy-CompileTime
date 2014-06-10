@@ -41,7 +41,7 @@ sub find_each_violation {
 
         push @violations, $self->violation(
             $message,
-            'No operations with global side effects at compile time',
+            'Global side effects at compile time',
             $statement
         ) if $test->($statement);
     });
