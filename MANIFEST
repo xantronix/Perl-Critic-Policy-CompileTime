@@ -1,7 +1,4 @@
 lib/Perl/Critic/Policy/CompileTime.pm
-lib/Perl/Critic/Policy/CompileTime/ProcessOps.pm
-lib/Perl/Critic/Policy/CompileTime/SpecialVar.pm
-lib/Perl/Critic/Policy/CompileTime/SystemIO.pm
 lib/PPIx/Perlcc.pm
 lib/PPIx/Perlcc/Element.pm
 lib/PPIx/Perlcc/Statement.pm

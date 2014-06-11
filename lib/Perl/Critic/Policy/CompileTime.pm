@@ -11,6 +11,8 @@ use PPIx::Perlcc ();
 
 our $VERSION = '0.01';
 
+my $POLICY = 'Global side effects at compile time';
+
 sub supported_parameters {
     return ();
 }
@@ -27,8 +29,8 @@ sub applies_to {
     return 'PPI::Statement::Scheduled';
 }
 
-sub find_each_violation {
-    my ($self, $node, $test, $message) = @_;
+sub violates {
+    my ($self, $node, $doc) = @_;
 
     return unless $node->isa_prerun_block;
 
@@ -40,10 +42,24 @@ sub find_each_violation {
         return 0 unless $statement->isa('PPI::Statement');
 
         push @violations, $self->violation(
-            $message,
-            'Global side effects at compile time',
+            'Performs process image operations',
+            $POLICY,
             $statement
-        ) if $test->($statement);
+        ) if $statement->performs_process_ops;
+
+        push @violations, $self->violation(
+            'Assignment to special var',
+            $POLICY,
+            $statement
+        ) if $statement->mutates_special_var;
+
+        push @violations, $self->violation(
+            'System I/O',
+            $POLICY,
+            $statement
+        ) if $statement->performs_system_io;
+
+        return 0;
     });
 
     return @violations;
