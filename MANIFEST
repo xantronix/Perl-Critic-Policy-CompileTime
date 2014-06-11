@@ -1,7 +1,7 @@
 lib/Perl/Critic/Policy/CompileTime.pm
-lib/PPIx/Perlcc.pm
-lib/PPIx/Perlcc/Element.pm
-lib/PPIx/Perlcc/Statement.pm
-lib/PPIx/Perlcc/Structure/List.pm
+lib/PPIx/PerlCompiler.pm
+lib/PPIx/PerlCompiler/Element.pm
+lib/PPIx/PerlCompiler/Statement.pm
+lib/PPIx/PerlCompiler/Structure/List.pm
 Makefile.PL
 MANIFEST			This list of files

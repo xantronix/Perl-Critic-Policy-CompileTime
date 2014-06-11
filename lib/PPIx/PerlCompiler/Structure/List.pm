@@ -1,4 +1,4 @@
-package PPIx::Perlcc::Structure::List;
+package PPIx::PerlCompiler::Structure::List;
 
 use strict;
 use warnings;

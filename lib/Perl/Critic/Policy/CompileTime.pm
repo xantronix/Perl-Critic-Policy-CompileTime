@@ -7,7 +7,7 @@ use Perl::Critic::Utils qw(:severities :classification :ppi);
 
 use base qw(Perl::Critic::Policy);
 
-use PPIx::Perlcc ();
+use PPIx::PerlCompiler ();
 
 our $VERSION = '0.01';
 

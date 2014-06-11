@@ -1,4 +1,4 @@
-package PPIx::Perlcc::Statement;
+package PPIx::PerlCompiler::Statement;
 
 use strict;
 use warnings;

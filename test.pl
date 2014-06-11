@@ -6,7 +6,7 @@ use warnings;
 use PPI::Document ();
 use PPI::Find     ();
 
-use PPIx::Perlcc ();
+use PPIx::PerlCompiler ();
 
 use Try::Tiny;
 
