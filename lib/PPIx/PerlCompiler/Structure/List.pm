@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 sub item {
-    my ($self, $index) = @_;
+    my ( $self, $index ) = @_;
 
     my $expression = $self->non_whitespace_child(0) or return;
 

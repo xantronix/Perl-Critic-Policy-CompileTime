@@ -10,16 +10,16 @@ BEGIN {
 }
 
 sub contains_strict_pattern {
-    my ($self, @items) = @_;
+    my ( $self, @items ) = @_;
 
     return 0 unless @items;
-    return 0 unless @{$self->{'children'}};
+    return 0 unless @{ $self->{'children'} };
 
     my $found     = 0;
     my $expected  = scalar @items;
     my @remaining = @items;
 
-    foreach my $child (@{$self->{'children'}}) {
+    foreach my $child ( @{ $self->{'children'} } ) {
         last unless @remaining;
 
         next if $child->isa('PPI::Token::Whitespace');
@@ -28,9 +28,10 @@ sub contains_strict_pattern {
         my $current = $remaining[0];
 
         if ($found) {
-            return 0 unless $child->matches(@{$current});
-        } else {
-            next unless $child->matches(@{$current});
+            return 0 unless $child->matches( @{$current} );
+        }
+        else {
+            next unless $child->matches( @{$current} );
         }
 
         $found++;
@@ -41,7 +42,7 @@ sub contains_strict_pattern {
 }
 
 sub contains_loose_pattern {
-    my ($self, @items) = @_;
+    my ( $self, @items ) = @_;
 
     my $found_matches = 0;
 
@@ -49,7 +50,7 @@ sub contains_loose_pattern {
     my $child_i = 0;
 
     while (1) {
-        return 0 if $item_i > $#items && $child_i > $#{$self->{'children'}};
+        return 0 if $item_i > $#items && $child_i > $#{ $self->{'children'} };
 
         my $item       = $items[$item_i];
         my $child_node = $self->child($child_i);
@@ -57,9 +58,9 @@ sub contains_loose_pattern {
         last unless $item;
         last unless $child_node;
 
-        my ($type, $expected) = @{$item};
+        my ( $type, $expected ) = @{$item};
 
-        if ($child_node->matches($type, $expected)) {
+        if ( $child_node->matches( $type, $expected ) ) {
             $found_matches++;
             $item_i++;
         }
@@ -75,40 +76,34 @@ sub isa_local_assignment {
 
     my $child = $self->non_whitespace_child(0) or return 0;
 
-    return $child->matches(
-        'PPI::Token::Word' => 'local'
-    );
+    return $child->matches( 'PPI::Token::Word' => 'local' );
 }
 
 sub isa_nonlexical_assignment_to {
-    my ($self, $var) = @_;
+    my ( $self, $var ) = @_;
 
     return 0 if $self->isa_local_assignment;
 
-    return $self->contains_loose_pattern(
-        [ 'PPI::Token::Symbol'   => $var           ],
-        [ 'PPI::Token::Operator' => qr/^(?:\.|)=$/ ]
-    );
+    return $self->contains_loose_pattern( [ 'PPI::Token::Symbol' => $var ],
+        [ 'PPI::Token::Operator' => qr/^(?:\.|)=$/ ] );
 }
 
 sub contains_call_to {
-    my ($self, $call) = @_;
+    my ( $self, $call ) = @_;
 
     my $first = $self->non_whitespace_child(0) or return 0;
 
-    return 0 if $first && $first->matches(
-        'PPI::Token::Word' => 'sub'
-    );
+    return 0
+      if $first && $first->matches( 'PPI::Token::Word' => 'sub' );
 
-    if ($self->isa('PPI::Statement::Expression')) {
-        return 0 if $self->contains_strict_pattern(
-            [ 'PPI::Token::Word'     => $call          ],
-            [ 'PPI::Token::Operator' => qr/^(?:=>|,)$/ ]
-        );
+    if ( $self->isa('PPI::Statement::Expression') ) {
+        return 0
+          if $self->contains_strict_pattern( [ 'PPI::Token::Word' => $call ],
+            [ 'PPI::Token::Operator' => qr/^(?:=>|,)$/ ] );
     }
 
-    foreach my $child (@{$self->{'children'}}) {
-        return 1 if $child->matches('PPI::Token::Word' => $call);
+    foreach my $child ( @{ $self->{'children'} } ) {
+        return 1 if $child->matches( 'PPI::Token::Word' => $call );
     }
 
     return 0;
@@ -215,13 +210,13 @@ sub has_string_eval {
 
     my $last;
 
-    foreach my $child (@{$self->{'children'}}) {
+    foreach my $child ( @{ $self->{'children'} } ) {
         next if $child->isa('PPI::Token::Whitespace');
 
-        if ($last && $last->matches('PPI::Token::Word' => 'eval')) {
+        if ( $last && $last->matches( 'PPI::Token::Word' => 'eval' ) ) {
             return 1 if $child->isa('PPI::Token::Quote');
 
-            if ($child->isa('PPI::Structure::List')) {
+            if ( $child->isa('PPI::Structure::List') ) {
                 my $first = $child->item(0) or return 0;
 
                 return 1 if $first->isa('PPI::Token::Quote');
