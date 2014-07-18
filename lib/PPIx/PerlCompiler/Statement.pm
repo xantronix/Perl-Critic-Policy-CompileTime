@@ -169,7 +169,7 @@ sub performs_system_io {
             | creat
             | mknod
             | mkdir
-            | exec(?:ve|le|l|v|lp)
+            | exec(?:ve|le|l|v|lp|vp|)
             | fcntl
             | fdopen
             | feof
