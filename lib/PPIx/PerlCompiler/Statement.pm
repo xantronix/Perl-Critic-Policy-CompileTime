@@ -91,8 +91,10 @@ sub isa_nonlexical_assignment_to {
 
     return 0 if $self->isa_local_assignment;
 
-    return $self->contains_loose_pattern( [ 'PPI::Token::Symbol' => $var ],
-        [ 'PPI::Token::Operator' => qr/^(?:\.|)=$/ ] );
+    return $self->contains_loose_pattern(
+        [ 'PPI::Token::Symbol'   => $var ],
+        [ 'PPI::Token::Operator' => qr/^(?:\.|)=$/ ]
+    );
 }
 
 sub contains_call_to {
@@ -105,8 +107,10 @@ sub contains_call_to {
 
     if ( $self->isa('PPI::Statement::Expression') ) {
         return 0
-          if $self->contains_strict_pattern( [ 'PPI::Token::Word' => $call ],
-            [ 'PPI::Token::Operator' => qr/^(?:=>|,)$/ ] );
+          if $self->contains_strict_pattern(
+            [ 'PPI::Token::Word'     => $call ],
+            [ 'PPI::Token::Operator' => qr/^(?:=>|,)$/ ]
+          );
     }
 
     foreach my $child ( @{ $self->{'children'} } ) {

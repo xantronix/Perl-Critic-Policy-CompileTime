@@ -56,8 +56,7 @@ sub isa_prerun_block {
     my ($self) = @_;
 
     return $self->isa('PPI::Statement::Scheduled')
-      && $self->non_whitespace_child(0)
-      ->matches( 'PPI::Token::Word' => qr/^(BEGIN|UNITCHECK|CHECK)$/ );
+      && $self->non_whitespace_child(0)->matches( 'PPI::Token::Word' => qr/^(BEGIN|UNITCHECK|CHECK)$/ );
 }
 
 1;

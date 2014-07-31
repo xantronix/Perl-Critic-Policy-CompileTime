@@ -50,17 +50,18 @@ sub violates {
             return 0 unless $statement->isa('PPI::Statement');
 
             push @violations,
-              $self->violation( 'Performs process image operations',
-                $POLICY, $statement )
-              if $statement->performs_process_ops;
+              $self->violation(
+                'Performs process image operations',
+                $POLICY, $statement
+              ) if $statement->performs_process_ops;
 
             push @violations,
-              $self->violation( 'Assignment to special var',
-                $POLICY, $statement )
-              if $statement->mutates_special_var;
+              $self->violation(
+                'Assignment to special var',
+                $POLICY, $statement
+              ) if $statement->mutates_special_var;
 
-            push @violations,
-              $self->violation( 'System I/O', $POLICY, $statement )
+            push @violations, $self->violation( 'System I/O', $POLICY, $statement )
               if $statement->performs_system_io;
 
             return 0;
