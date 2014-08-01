@@ -1,8 +1,8 @@
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    'NAME'         => 'PPIx::PerlCompiler',
-    'VERSION_FROM' => 'lib/PPIx/PerlCompiler.pm',
+    'NAME'         => 'Perl::Critic::Policy::CompileTime',
+    'VERSION_FROM' => 'lib/Perl/Critic/Policy/CompileTime.pm',
     'AUTHOR'       => 'Erin Schoenhals <erin@cpanel.net>',
     'LICENSE'      => 'perl',
     'ABSTRACT'     => 'Find code that runs in compile-time blocks',
