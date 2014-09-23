@@ -14,9 +14,11 @@ use Perl::Critic::Utils qw(:severities :classification :ppi);
 
 use base qw(Perl::Critic::Policy);
 
-use PPIx::PerlCompiler ();
+use PPIx::PerlCompiler::Element         ();
+use PPIx::PerlCompiler::Statement       ();
+use PPIx::PerlCompiler::Structure::List ();
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my $POLICY = 'Global side effects at compile time';
 
@@ -118,3 +120,7 @@ simply add something like the following to your .perlcriticrc file:
 =item L<Perl::Critic>
 
 =back
+
+=head1 AUTHOR
+
+Xan Tronix <xan@cpan.org>

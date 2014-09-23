@@ -37,3 +37,7 @@ simply add something like the following to your .perlcriticrc file:
 # SEE ALSO
 
 - [Perl::Critic](https://metacpan.org/pod/Perl::Critic)
+
+# AUTHOR
+
+Xan Tronix <xan@cpan.org>
