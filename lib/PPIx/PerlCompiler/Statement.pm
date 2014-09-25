@@ -93,7 +93,7 @@ sub isa_nonlexical_assignment_to {
 
     return $self->contains_loose_pattern(
         [ 'PPI::Token::Symbol'   => $var ],
-        [ 'PPI::Token::Operator' => qr/^(?:\.|)=$/ ]
+        [ 'PPI::Token::Operator' => qr{^(?:\Q||\E|&&|//|<<|>>|\Q**\E|[-+*/%.|&^x])?=$} ]
     );
 }
 

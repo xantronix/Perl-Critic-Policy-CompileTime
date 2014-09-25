@@ -1,6 +1,4 @@
-.perltidyrc
 lib/Perl/Critic/Policy/CompileTime.pm
-lib/PPIx/PerlCompiler.pm
 lib/PPIx/PerlCompiler/Element.pm
 lib/PPIx/PerlCompiler/Statement.pm
 lib/PPIx/PerlCompiler/Structure/List.pm
